@@ -1,4 +1,6 @@
-﻿namespace ExpressVoitures.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace ExpressVoitures.Data.Entities;
 
 public class Image
 {
