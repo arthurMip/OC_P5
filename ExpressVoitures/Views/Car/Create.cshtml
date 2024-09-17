@@ -1,5 +1,92 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CreateCarViewModel
+
 @{
+    ViewData["Title"] = "Create";
 }
+
+<h1>Ajouter une voiture</h1>
+
+<form asp-action="Create" method="post">
+
+    <div class="form-group mt-2">
+        <label asp-for="ManufacturingYear">Année</label>
+        <input asp-for="ManufacturingYear" type="number" class="form-control" />
+        <span asp-validation-for="ManufacturingYear" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="VinCode">Code Vin</label>
+        <input asp-for="VinCode" class="form-control" />
+        <span asp-validation-for="VinCode" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="Brand">Marque</label>
+        <input asp-for="Brand" class="form-control" />
+        <span asp-validation-for="Brand" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="Model">Modèle</label>
+        <input asp-for="Model" class="form-control" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="Finish">Finition</label>
+        <input asp-for="Finish" class="form-control" />
+        <span asp-validation-for="Finish" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="BuyingDate">Date d’achat</label>
+        <input asp-for="BuyingDate" type="date" class="form-control" />
+        <span asp-validation-for="BuyingDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="BuyingPrice">Prix d’achat</label>
+        <input asp-for="BuyingPrice" type="number" class="form-control" />
+        <span asp-validation-for="BuyingPrice" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="FixingDescription">Réparations</label>
+        <input asp-for="FixingDescription" class="form-control" />
+        <span asp-validation-for="FixingDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="FixingDescription">Coûts de réparation</label>
+        <input asp-for="FixingDescription" type="number" class="form-control" />
+        <span asp-validation-for="FixingDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="AvailableDate">Date de disponibilité à la vente</label>
+        <input asp-for="AvailableDate" type="date" class="form-control" />
+        <span asp-validation-for="AvailableDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="FixingDescription">Coûts de réparation</label>
+        <input asp-for="FixingDescription" type="number" class="form-control" />
+        <span asp-validation-for="FixingDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="SellingDate">Date de vente</label>
+        <input asp-for="SellingDate" type="date" class="form-control" />
+        <span asp-validation-for="SellingDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="SelingPrice">Prix de vente</label>
+        <input asp-for="SelingPrice" type="number" class="form-control" />
+        <span asp-validation-for="SelingPrice" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </div>
+</form>

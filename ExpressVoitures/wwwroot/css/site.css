@@ -17,6 +17,31 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+
+header {
+    width: 100%; 
 }
+
+#navbar {
+    height: 91px;
+    max-width: 1440px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar_links {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar_links a {
+    text-decoration: none;
+    color: black;
+}
+
+.navbar_links a.active {
+    font-weight: bold;
+}
+

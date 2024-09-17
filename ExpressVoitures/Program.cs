@@ -1,5 +1,6 @@
 using ExpressVoitures.Data;
 using ExpressVoitures.Data.Repositories;
+using ExpressVoitures.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ICarRepository, CarRepository>();
+builder.Services.AddScoped<ICarService, CarService>();
 
 var app = builder.Build();
 
