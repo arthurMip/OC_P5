@@ -34,5 +34,5 @@ public class CreateCarViewModel
     public DateTime? SellingDate { get; set; }
     [Required]
     [Range(0, 1000000)]
-    public decimal SelingPrice { get; set; }
+    public decimal SellingPrice { get; set; }
 }
