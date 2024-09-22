@@ -14,10 +14,11 @@ public class CarController : Controller
         _carService = carService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-
-        return View();
+        var cars =  await _carService.GetCarsAsync(false);
+        
+        return View(cars);
     }
 
     public IActionResult Details(int id)

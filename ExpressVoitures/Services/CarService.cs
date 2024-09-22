@@ -29,11 +29,6 @@ public class CarService : ICarService
         };
     }
 
-    public async Task<IEnumerable<CarViewModel>> GetAvailableCarsAsync()
-    {
-        return (await _carRepository.GetAvailableCarsAsync()).Select(MapCarToCarViewModel);
-    }
-
     public async Task<CarViewModel?> GetCarByIdAsync(int id)
     {
         Car? car = await _carRepository.GetCarByIdAsync(id);
@@ -101,5 +96,17 @@ public class CarService : ICarService
     public Task<bool> DeleteCarAsync(int id)
     {
         return _carRepository.DeleteCarAsync(id);
+    }
+
+    public async Task<IEnumerable<CarViewModel>> GetCarsAsync(bool onlyAvailable)
+    {
+        if (onlyAvailable)
+        {
+            return (await _carRepository.GetAvailableCarsAsync()).Select(MapCarToCarViewModel);
+        }
+        else
+        {
+            return (await _carRepository.GetAllCarsAsync()).Select(MapCarToCarViewModel);
+        }
     }
 }
