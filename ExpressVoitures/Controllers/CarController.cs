@@ -1,4 +1,5 @@
 ﻿using ExpressVoitures.Models.Car;
+using ExpressVoitures.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,14 +8,15 @@ namespace ExpressVoitures.Controllers;
 [Authorize]
 public class CarController : Controller
 {
-    private readonly IWebHostEnvironment _hostingEnvironment;
-    public CarController(IWebHostEnvironment hostingEnvironment)
+    private readonly ICarService _carService;
+    public CarController(ICarService carService)
     {
-        _hostingEnvironment = hostingEnvironment;
+        _carService = carService;
     }
 
     public IActionResult Index()
     {
+
         return View();
     }
 
@@ -38,13 +40,12 @@ public class CarController : Controller
             return View(car);
         }
 
-        if (car.Image?.Length > 0)
-        {
-            string uniqueFileName = Guid.NewGuid().ToString().Substring(24) + Path.GetExtension(car.Image.FileName);
-            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", uniqueFileName);
+        var succeded = await _carService.AddCarAsync(car);
 
-            using var fileStream = new FileStream(filePath, FileMode.Create);
-            await car.Image.CopyToAsync(fileStream);
+        if (!succeded)
+        {
+            ModelState.AddModelError(string.Empty, "Failed to add car.");
+            return View(car);
         }
 
         return RedirectToAction("Index");
