@@ -5,6 +5,8 @@
     <h3>Vouture Express</h3>
 
     <form asp-action="Login">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
         <div class="form-group">
             <label asp-for="Email">Addresse email</label>
             <input asp-for="Email" class="form-control" />
@@ -17,10 +19,10 @@
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
-
-        <button type="submit" class="btn btn-primary">Se connecter</button>
-        <span>ou</span>
-        <a asp-action="Register">S'inscrire</a>
+        <div class="form-buttons">
+            <button type="submit" class="btn-cta">Se connecter</button>
+            <span>ou</span>
+            <a asp-action="Register" class="btn-cta">S'inscrire</a>
+        </div>
     </form>
 </div>
-

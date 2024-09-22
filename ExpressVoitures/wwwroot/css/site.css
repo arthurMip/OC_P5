@@ -1,3 +1,9 @@
+:root {
+    --color-primary-light: #d9a963;
+    --color-primary-light_hover: #b99055;
+    --color-primary-dark: #2c1810;
+}
+
 html {
   font-size: 14px;
 }
@@ -45,3 +51,26 @@ header {
     font-weight: bold;
 }
 
+.btn-cta {
+    all:unset;
+    cursor:pointer;
+    color: var(--colo-primary-dark);
+    background-color: var(--color-primary-light);
+    padding: 20px 20px;
+    border-radius: 5px;
+    transition: all 0.3s linear;
+}
+
+.btn-cta:hover {
+    color: white;
+    background-color: var(--color-primary-light_hover);
+}
+
+.form-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
