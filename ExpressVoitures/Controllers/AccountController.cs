@@ -48,9 +48,40 @@ public class AccountController : Controller
         return RedirectToAction("Index", "Car");
     }
 
+    [HttpGet]
     public IActionResult Register()
     {
         return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Register(RegisterViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var user = new IdentityUser
+        {
+            UserName = model.Email,
+            Email = model.Email
+        };
+
+        var result = await _signInManager.UserManager.CreateAsync(user, model.Password);
+
+        if (!result.Succeeded)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View(model);
+        }
+
+        await _signInManager.SignInAsync(user, false);
+        return RedirectToAction("Index", "Car");
     }
 
     public async Task<IActionResult> Logout()
