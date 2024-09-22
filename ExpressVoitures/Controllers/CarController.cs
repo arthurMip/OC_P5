@@ -23,15 +23,14 @@ public class CarController : Controller
         return View();
     }
 
+    [Authorize(Roles="Admin")]
     public IActionResult Create()
     {
-        //return View(new CreateCarViewModel());
         return View();
     }
 
-    // ...
-
     [HttpPost]
+    [Authorize(Roles="Admin")]
     public async Task<IActionResult> Create(CreateCarViewModel car)
     {
         if (!ModelState.IsValid)
@@ -51,16 +50,16 @@ public class CarController : Controller
         return RedirectToAction("Index");
     }
 
+    [Authorize(Roles="Admin")]
     public IActionResult Edit(int id)
     {
         return View();
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public IActionResult Edit(EditCarViewModel model)
     {
         return RedirectToAction("Index");
     }
-
-
 }
