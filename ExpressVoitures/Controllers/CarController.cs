@@ -1,8 +1,10 @@
 ﻿using ExpressVoitures.Models.Car;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpressVoitures.Controllers;
 
+[Authorize]
 public class CarController : Controller
 {
     private readonly IWebHostEnvironment _hostingEnvironment;

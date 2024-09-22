@@ -1,9 +1,10 @@
-﻿<nav id="navbar">
+﻿
+<nav id="navbar">
     <h1>Express Voitures</h1>
 
     <div class="navbar_links">
-        <a class="@Html.IsActive("Home", "Index")" asp-controller="Home" asp-action="Index">Accueil</a>
+        <a class="@Html.IsActive("Car", "Index")" asp-controller="Car" asp-action="Index">Accueil</a>
         <a class="@Html.IsActive("Car", "Create")" asp-controller="Car" asp-action="Create">Ajouter une voiture</a>
-        <a class="@Html.IsActive("Hmoe", "")" asp-controller="Home" asp-action="">Se deconnecter</a>
+        <a class="@Html.IsActive("Account", "Logout")" asp-controller="Account" asp-action="Logout">Se deconnecter</a>
     </div>
 </nav>

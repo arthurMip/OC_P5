@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,9 +12,12 @@
     <link rel="stylesheet" href="~/ExpressVoitures.styles.css" asp-append-version="true" />
 </head>
 <body>
-   <header>
-        <partial name="_NavBar"/>
-   </header>
+    <header>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <partial name="_NavBar"/>
+        }
+    </header>
 
 
 @*          <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
