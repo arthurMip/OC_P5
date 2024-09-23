@@ -93,11 +93,6 @@ public class CarService : ICarService
         throw new NotImplementedException();
     }
 
-    public Task<bool> DeleteCarAsync(int id)
-    {
-        return _carRepository.DeleteCarAsync(id);
-    }
-
     public async Task<IEnumerable<CarViewModel>> GetCarsAsync(bool onlyAvailable)
     {
         if (onlyAvailable)
@@ -108,5 +103,22 @@ public class CarService : ICarService
         {
             return (await _carRepository.GetAllCarsAsync()).Select(MapCarToCarViewModel);
         }
+    }
+
+    public async Task<CarViewModel?> DeleteCarAsync(int id)
+    {
+        var car = await _carRepository.GetCarByIdAsync(id);
+        if (car == null)
+        {
+            return null;
+        }
+        bool deleted = await _carRepository.DeleteCarAsync(id);
+        if (deleted && car.Image != null)
+        {
+            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", car.Image.FileName);
+            File.Delete(filePath);
+        }
+
+        return MapCarToCarViewModel(car);
     }
 }

@@ -8,5 +8,5 @@ public interface ICarService
     Task<CarViewModel?> GetCarByIdAsync(int id);
     Task<bool> AddCarAsync(CreateCarViewModel car);
     Task<bool> UpdateCarAsync(CreateCarViewModel car);
-    Task<bool> DeleteCarAsync(int id);
+    Task<CarViewModel?> DeleteCarAsync(int id);
 }

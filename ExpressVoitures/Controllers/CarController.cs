@@ -45,13 +45,14 @@ public class CarController : Controller
 
         if (!succeded)
         {
-            ModelState.AddModelError(string.Empty, "Failed to add car.");
+            ViewBag.Error = "Failed to add car.";
             return View(car);
         }
 
         return RedirectToAction("CreateSuccess");
     }
 
+    [Authorize(Roles = "Admin")]
     public IActionResult CreateSuccess()
     {
         return View();
@@ -68,5 +69,21 @@ public class CarController : Controller
     public IActionResult Edit(EditCarViewModel model)
     {
         return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deletedCar = await _carService.DeleteCarAsync(id);
+
+        if (deletedCar == null)
+        {
+            ViewBag.Error = "Failed to delete car.";
+            return RedirectToAction("Details", new { id });
+        }
+
+        return View("DeletedSuccess", deletedCar);
+
     }
 }
