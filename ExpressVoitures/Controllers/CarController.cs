@@ -49,7 +49,12 @@ public class CarController : Controller
             return View(car);
         }
 
-        return RedirectToAction("Index");
+        return RedirectToAction("CreateSuccess");
+    }
+
+    public IActionResult CreateSuccess()
+    {
+        return View();
     }
 
     [Authorize(Roles="Admin")]
