@@ -8,6 +8,7 @@ public class CarService : ICarService
 {
     private readonly ICarRepository _carRepository;
     private readonly IWebHostEnvironment _hostingEnvironment;
+    private const decimal _profit = 500;
 
     public CarService(ICarRepository carRepository, IWebHostEnvironment hostingEnvironment)
     {
@@ -62,7 +63,7 @@ public class CarService : ICarService
             {
                 AvailableDate = car.AvailableDate,
                 SellingDate = car.SellingDate,
-                Price = car.SellingPrice,
+                Price = car.BuyingPrice + car.FixingCost + _profit,
             },
         };
 

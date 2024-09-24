@@ -32,9 +32,6 @@ public class CreateCarViewModel
     [Required]
     public DateTime AvailableDate { get; set; }
     public DateTime? SellingDate { get; set; }
-    [Required]
-    [Range(0, 1000000)]
-    public decimal SellingPrice { get; set; }
 
     [Required]
     public IFormFile Image { get; set; }
