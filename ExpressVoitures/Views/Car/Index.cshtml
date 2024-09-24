@@ -1,18 +1,25 @@
 ﻿@model IEnumerable<CarViewModel>
 
+<h2>Nos voitures</h2>
 
-@foreach (var car in Model)
+@if (User.IsInRole("Admin"))
 {
-    <div class="car">
-        <div class="car-image">
-            <img src="@car.ImageUrl" alt="Car" />
-        </div>
-        <div class="car-details">
-            <h3>@car.Price</h3>
-            <p>@car.Year</p>
-            <p>@car.Brand</p>
-            <p>@car.Model</p>
-            <p>@car.Finish</p>
-        </div>
-    </div>
+    <a href="/car/create"class="btn-cta">+ Ajouter une voiture</a>
 }
+
+
+<div class="cars-container">
+    @foreach (var car in Model)
+    {
+        <a href="/car/details/@car.Id" class="car">
+            <img src="@car.ImageUrl" alt="Car" />
+            <div>
+                <h3>@car.Price€</h3>
+                <p>@car.Year</p>
+                <p>@car.Brand</p>
+                <p>@car.Model</p>
+                <p>@car.Finish</p>
+            </div>
+        </a>
+    }
+</div>

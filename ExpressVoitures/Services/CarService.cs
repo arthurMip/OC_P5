@@ -25,18 +25,14 @@ public class CarService : ICarService
             Model = car.ManufacturingInfo.Model,
             Brand = car.ManufacturingInfo.Brand,
             Finish = car.ManufacturingInfo.Finish,
-            ImageUrl = $"./images/{car.Image.FileName}",
+            ImageUrl = $"/images/{car.Image.FileName}",
         };
     }
 
     public async Task<CarViewModel?> GetCarByIdAsync(int id)
     {
         Car? car = await _carRepository.GetCarByIdAsync(id);
-        if (car == null)
-        {
-            return null;
-        }
-        return MapCarToCarViewModel(car);
+        return car == null ? null : MapCarToCarViewModel(car);
     }
 
 

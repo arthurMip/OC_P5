@@ -21,9 +21,15 @@ public class CarController : Controller
         return View(cars);
     }
 
-    public IActionResult Details(int id)
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
     {
-        return View();
+        var car = await _carService.GetCarByIdAsync(id);
+        if (car == null)
+        {
+            return NotFound();
+        }
+        return View(car);
     }
 
     [Authorize(Roles="Admin")]
