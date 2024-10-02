@@ -9,6 +9,7 @@
             <label asp-for="Email">Addresse email</label>
             <input asp-for="Email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
+
         </div>
 
         <div class="form-group">
@@ -26,8 +27,6 @@
 
         <div class="form-buttons">
             <button type="submit" class="btn-cta">S'inscrire</button>
-            <span>ou</span>
-            <a asp-action="Login" class="btn-cta">Se connecter</a>
         </div>
     </form>
 </div>
