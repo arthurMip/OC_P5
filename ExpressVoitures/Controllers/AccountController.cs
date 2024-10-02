@@ -74,7 +74,11 @@ public class AccountController : Controller
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                if (error.Code == "DuplicateUserName" || error.Code == "DuplicateEmail")
+                {
+                    ModelState.AddModelError("Email", error.Description);
+                }
+
             }
 
             return View(model);

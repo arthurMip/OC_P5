@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpressVoitures.Controllers;
 
-[Authorize]
+[Authorize("")]
 public class CarController : Controller
 {
     private readonly ICarService _carService;
@@ -13,6 +13,15 @@ public class CarController : Controller
     {
         _carService = carService;
     }
+
+    [AllowAnonymous]
+    [HttpGet("/api/cars")]
+    public async Task<IActionResult> GetCars()
+    {
+        var cars = await _carService.GetCarsAsync(false);
+        return Ok(cars);
+    }
+
 
     public async Task<IActionResult> Index()
     {
