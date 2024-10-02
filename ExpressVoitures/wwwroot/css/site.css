@@ -2,12 +2,17 @@
     --color-primary-light: #d9a963;
     --color-primary-light_hover: #b99055;
     --color-primary-dark: #2c1810;
+    --color-secondary: #796157;
 
+    --font-serif: "Libre Baskerville", serif;
+    --font-sans: "DM Sans", sans-serif;
 }
 
 html {
   color: var(--color-primary-dark);
   font-size: 14px;
+
+  font-family: var(--font-sans);
 }
 
 @media (min-width: 768px) {
@@ -16,18 +21,28 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
+
 
 html {
   position: relative;
   min-height: 100%;
 }
 
+h1 {
+    font-family: var(--font-serif);
+}
+
+h2 {
+    font-family: var(--font-serif);
+    color:var(--color-secondary);
+    font-style: italic;
+    font-size: 36px;
+}
+
 a {
     color: inherit;
     text-decoration: inherit;
+    font-family: var(--font-serif);
 }
 
 a:hover {
@@ -42,6 +57,7 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-family: var(--font-serif);
 }
 
 .navbar_links {
@@ -61,6 +77,7 @@ a:hover {
 .btn-cta {
     all:unset;
     cursor:pointer;
+    font-family: var(--font-sans);
     color: var(--colo-primary-dark);
     background-color: var(--color-primary-light);
     padding: 20px 20px;
@@ -92,12 +109,8 @@ a:hover {
     gap: 36px;
 }
 
-.form-container h3 {
-    font-family: serif;
-    font-size: 36px;
-}
-
 form {
+    font-family: var(--font-sans);
     width: 493px;
     padding: 40px;
 }
