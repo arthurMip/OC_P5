@@ -1,15 +1,14 @@
-﻿@model CreateCarViewModel
+﻿@model UpdateCarViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Modifier";
 }
 
-    <h2>Ajouter une voiture</h2>
-    <p>tous les champs sont obligatoires</p>
+<h2>Modifier une voiture</h2>
 
 <div class="form-container  shadow-sm">
 
-<form asp-action="Create" method="post" enctype="multipart/form-data">
+<form asp-action="Update" method="post" enctype="multipart/form-data">
     <div class="form-group mt-2">
         <label asp-for="ManufacturingYear">Année</label>
         <input asp-for="ManufacturingYear" type="number" class="form-control" />
@@ -68,6 +67,12 @@
         <label asp-for="AvailableDate">Date de disponibilité à la vente</label>
         <input asp-for="AvailableDate" type="date" class="form-control" />
         <span asp-validation-for="AvailableDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label asp-for="SellingDate">Date de vente</label>
+        <input asp-for="SellingDate" type="date" class="form-control" />
+        <span asp-validation-for="SellingDate" class="text-danger"></span>
     </div>
 
     <div class="form-group mt-2">

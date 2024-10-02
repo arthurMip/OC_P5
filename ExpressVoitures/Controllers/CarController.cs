@@ -1,11 +1,12 @@
-﻿using ExpressVoitures.Models.Car;
+﻿using ExpressVoitures.Data.Entities;
+using ExpressVoitures.Models.Car;
 using ExpressVoitures.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpressVoitures.Controllers;
 
-[Authorize("")]
+[Authorize(Roles="Admin")]
 public class CarController : Controller
 {
     private readonly ICarService _carService;
@@ -22,7 +23,7 @@ public class CarController : Controller
         return Ok(cars);
     }
 
-
+    [Authorize(Roles="Admin,User")]
     public async Task<IActionResult> Index()
     {
         var cars =  await _carService.GetCarsAsync(false);
@@ -30,6 +31,7 @@ public class CarController : Controller
         return View(cars);
     }
 
+    [Authorize(Roles = "Admin,User")]
     [HttpGet]
     public async Task<IActionResult> Details(int id)
     {
@@ -41,14 +43,12 @@ public class CarController : Controller
         return View(car);
     }
 
-    [Authorize(Roles="Admin")]
     public IActionResult Create()
     {
         return View();
     }
 
     [HttpPost]
-    [Authorize(Roles="Admin")]
     public async Task<IActionResult> Create(CreateCarViewModel car)
     {
         if (!ModelState.IsValid)
@@ -67,27 +67,38 @@ public class CarController : Controller
         return RedirectToAction("CreateSuccess");
     }
 
-    [Authorize(Roles = "Admin")]
     public IActionResult CreateSuccess()
     {
         return View();
     }
 
-    [Authorize(Roles="Admin")]
-    public IActionResult Edit(int id)
+    public async Task<IActionResult> Update(int id)
     {
-        return View();
+        var model = await _carService.GetUpdateCarViewModelByIdAsync(id);
+
+        return View(model);
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
-    public IActionResult Edit(EditCarViewModel model)
+    public async Task<IActionResult> Update(UpdateCarViewModel car)
     {
-        return RedirectToAction("Index");
+        if (!ModelState.IsValid)
+        {
+            return View(car);
+        }
+
+        var succeded = await _carService.UpdateCarAsync(car);
+
+        if (!succeded)
+        {
+            ViewBag.Error = "Failed to update car.";
+            return View(car);
+        }
+
+        return RedirectToAction("CreateSuccess");
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
         var deletedCar = await _carService.DeleteCarAsync(id);

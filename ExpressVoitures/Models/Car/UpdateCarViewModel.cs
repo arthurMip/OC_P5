@@ -2,7 +2,7 @@
 
 namespace ExpressVoitures.Models.Car;
 
-public class CreateCarViewModel
+public class UpdateCarViewModel
 {
     public int Id { get; set; }
 
@@ -31,7 +31,6 @@ public class CreateCarViewModel
     public decimal FixingCost { get; set; }
     [Required]
     public DateTime AvailableDate { get; set; }
-
-    [Required]
-    public IFormFile Image { get; set; }
+    public DateTime? SellingDate { get; set; }
+    public IFormFile? Image { get; set; }
 }

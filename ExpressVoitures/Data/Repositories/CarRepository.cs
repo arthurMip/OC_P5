@@ -60,20 +60,7 @@ public class CarRepository(ApplicationDbContext context) : ICarRepository
 
     public async Task<bool> UpdateCarAsync(Car car)
     {
-        var existingCar = await _context.Cars.FindAsync(car.Id);
-        if (existingCar == null)
-        {
-            return false;
-        }
-
-        existingCar.Visible = car.Visible;
-        existingCar.BuyingInfo = car.BuyingInfo;
-        existingCar.FixingInfo = car.FixingInfo;
-        existingCar.SellingInfo = car.SellingInfo;
-        existingCar.ManufacturingInfo = car.ManufacturingInfo;
-        existingCar.Image = car.Image;
-
-        _context.Cars.Update(existingCar);
+        _context.Cars.Update(car);
         return await  _context.SaveChangesAsync() > 0;
     }
 }

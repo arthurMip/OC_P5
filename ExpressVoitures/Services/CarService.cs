@@ -30,6 +30,25 @@ public class CarService : ICarService
         };
     }
 
+    private static UpdateCarViewModel MapCarUpdateCarViewModel(Car car)
+    {
+        return new UpdateCarViewModel
+        {
+            Id = car.Id,
+            BuyingPrice = car.BuyingInfo.Price,
+            BuyingDate = car.BuyingInfo.Date,
+            FixingDescription = car.FixingInfo.Description,
+            FixingCost = car.FixingInfo.Cost,
+            ManufacturingYear = car.ManufacturingInfo.Year,
+            Brand = car.ManufacturingInfo.Brand,
+            Model = car.ManufacturingInfo.Model,
+            Finish = car.ManufacturingInfo.Finish,
+            VinCode = car.ManufacturingInfo.VinCode,
+            AvailableDate = car.SellingInfo.AvailableDate,
+            SellingDate = car.SellingInfo.SellingDate,
+        };
+    }
+
     public async Task<CarViewModel?> GetCarByIdAsync(int id)
     {
         Car? car = await _carRepository.GetCarByIdAsync(id);
@@ -62,7 +81,6 @@ public class CarService : ICarService
             SellingInfo = new SellingInfo
             {
                 AvailableDate = car.AvailableDate,
-                SellingDate = car.SellingDate,
                 Price = car.BuyingPrice + car.FixingCost + _profit,
             },
         };
@@ -83,11 +101,6 @@ public class CarService : ICarService
         }
 
         return await _carRepository.AddCarAsync(model);
-    }
-
-    public Task<bool> UpdateCarAsync(CreateCarViewModel car)
-    {
-        throw new NotImplementedException();
     }
 
     public async Task<IEnumerable<CarViewModel>> GetCarsAsync(bool onlyAvailable)
@@ -117,5 +130,55 @@ public class CarService : ICarService
         }
 
         return MapCarToCarViewModel(car);
+    }
+
+    public async Task<UpdateCarViewModel?> GetUpdateCarViewModelByIdAsync(int id)
+    {
+        var car = await _carRepository.GetCarByIdAsync(id);
+        if (car == null)
+        {
+            return null;
+        }
+
+        return MapCarUpdateCarViewModel(car);
+    }
+
+    public async Task<bool> UpdateCarAsync(UpdateCarViewModel car)
+    {
+        var model = await _carRepository.GetCarByIdAsync(car.Id);
+
+        if (model == null) return false;
+
+        model.BuyingInfo.Price = car.BuyingPrice;
+        model.BuyingInfo.Date = car.BuyingDate;
+        model.FixingInfo.Description = car.FixingDescription;
+        model.FixingInfo.Cost = car.FixingCost;
+        model.ManufacturingInfo.VinCode = car.VinCode;
+        model.ManufacturingInfo.Year = car.ManufacturingYear;
+        model.ManufacturingInfo.Brand = car.Brand;
+        model.ManufacturingInfo.Model = car.Model;
+        model.ManufacturingInfo.Finish = car.Finish;
+
+        model.SellingInfo.SellingDate = car.SellingDate;
+        model.BuyingInfo.Date = car.BuyingDate;
+        model.SellingInfo.Price = car.BuyingPrice + car.FixingCost + _profit;
+
+        if (car.Image?.Length > 0)
+        {
+            string uniqueFileName = Guid.NewGuid().ToString().Substring(24) + Path.GetExtension(car.Image.FileName);
+            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", uniqueFileName);
+
+            using var fileStream = new FileStream(filePath, FileMode.Create);
+
+            await car.Image.CopyToAsync(fileStream);
+
+
+            model.Image = new Image
+            {
+                FileName = uniqueFileName,
+            };
+        }
+
+        return await _carRepository.UpdateCarAsync(model);
     }
 }
