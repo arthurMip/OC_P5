@@ -1,5 +1,6 @@
 ﻿using ExpressVoitures.Data.Entities;
 using ExpressVoitures.Models.Car;
+using ExpressVoitures.Models.Shared;
 using ExpressVoitures.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -67,10 +68,7 @@ public class CarController : Controller
         return RedirectToAction("CreateSuccess");
     }
 
-    public IActionResult CreateSuccess()
-    {
-        return View();
-    }
+
 
     public async Task<IActionResult> Update(int id)
     {
@@ -95,7 +93,7 @@ public class CarController : Controller
             return View(car);
         }
 
-        return RedirectToAction("CreateSuccess");
+        return RedirectToAction("UpdateSuccess");
     }
 
     [HttpGet]
@@ -109,7 +107,40 @@ public class CarController : Controller
             return RedirectToAction("Details", new { id });
         }
 
-        return View("DeletedSuccess", deletedCar);
+        return RedirectToAction("DeletedSuccess", deletedCar);
 
+    }
+
+    public IActionResult CreateSuccess()
+    {
+        SuccessViewModel model = new()
+        {
+            Title = "Merci !",
+            Description = "votre voiture a bien été publiée"
+        };
+
+        return View("SuccessPage", model);
+    }
+
+    public IActionResult UpdateSuccess()
+    {
+        SuccessViewModel model = new()
+        {
+            Title = "Merci !",
+            Description = "votre voiture a bien été mise à jour"
+        };
+
+        return View("SuccessPage", model);
+    }
+
+    public IActionResult DeleteSuccess(CarViewModel car)
+    {
+        SuccessViewModel model = new()
+        {
+            Title = $"{car.Year} {car.Brand} {car.Model} {car.Finish}",
+            Description = "votre voiture a bien été supprimées"
+        };
+
+        return View("SuccessPage", model);
     }
 }
