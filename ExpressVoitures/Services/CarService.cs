@@ -165,18 +165,13 @@ public class CarService : ICarService
 
         if (car.Image?.Length > 0)
         {
-            string uniqueFileName = Guid.NewGuid().ToString().Substring(24) + Path.GetExtension(car.Image.FileName);
-            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", uniqueFileName);
+            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", model.Image.FileName.Split("?")[0]);
 
-            using var fileStream = new FileStream(filePath, FileMode.Create);
 
+            await using var fileStream = new FileStream(filePath, FileMode.Create);
             await car.Image.CopyToAsync(fileStream);
 
-
-            model.Image = new Image
-            {
-                FileName = uniqueFileName,
-            };
+            model.Image.FileName = Path.GetFileName(filePath) + "?v=" + Guid.NewGuid().ToString().Substring(24);
         }
 
         return await _carRepository.UpdateCarAsync(model);
