@@ -16,14 +16,6 @@ public class CarController : Controller
         _carService = carService;
     }
 
-    [AllowAnonymous]
-    [HttpGet("/api/cars")]
-    public async Task<IActionResult> GetCars()
-    {
-        var cars = await _carService.GetCarsAsync(false);
-        return Ok(cars);
-    }
-
     [Authorize(Roles="Admin,User")]
     public async Task<IActionResult> Index()
     {

@@ -1,16 +1,20 @@
 ﻿using ExpressVoitures.Models.Account;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 
 namespace ExpressVoitures.Controllers;
 
 public class AccountController : Controller
 {
     private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly UserManager<IdentityUser> _userManager;
 
-    public AccountController(SignInManager<IdentityUser> signInManager)
+    public AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
     {
         _signInManager = signInManager;
+        _userManager = userManager;
     }
 
     public IActionResult Index()
@@ -84,10 +88,13 @@ public class AccountController : Controller
             return View(model);
         }
 
+        await _userManager.AddToRoleAsync(user, "User");
+
         await _signInManager.SignInAsync(user, false);
         return RedirectToAction("Index", "Car");
     }
 
+    [Authorize]
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
