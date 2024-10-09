@@ -35,6 +35,7 @@ public class CarService : ICarService
         return new UpdateCarViewModel
         {
             Id = car.Id,
+            Visible = car.Visible,
             BuyingPrice = car.BuyingInfo.Price,
             BuyingDate = car.BuyingInfo.Date,
             FixingDescription = car.FixingInfo.Description,
@@ -60,6 +61,7 @@ public class CarService : ICarService
     {
         var model = new Car
         {
+            Visible = car.Visible,
             BuyingInfo = new BuyingInfo
             {
                 Price = car.BuyingPrice,
@@ -103,15 +105,15 @@ public class CarService : ICarService
         return await _carRepository.AddCarAsync(model);
     }
 
-    public async Task<IEnumerable<CarViewModel>> GetCarsAsync(bool onlyAvailable)
+    public async Task<IEnumerable<CarViewModel>> GetCarsAsync(bool getAll)
     {
-        if (onlyAvailable)
+        if (getAll)
         {
-            return (await _carRepository.GetAvailableCarsAsync()).Select(MapCarToCarViewModel);
+            return (await _carRepository.GetAllCarsAsync()).Select(MapCarToCarViewModel);
         }
         else
         {
-            return (await _carRepository.GetAllCarsAsync()).Select(MapCarToCarViewModel);
+            return (await _carRepository.GetAvailableCarsAsync()).Select(MapCarToCarViewModel);
         }
     }
 
@@ -149,6 +151,7 @@ public class CarService : ICarService
 
         if (model == null) return false;
 
+        model.Visible = car.Visible;
         model.BuyingInfo.Price = car.BuyingPrice;
         model.BuyingInfo.Date = car.BuyingDate;
         model.FixingInfo.Description = car.FixingDescription;
@@ -158,7 +161,7 @@ public class CarService : ICarService
         model.ManufacturingInfo.Brand = car.Brand;
         model.ManufacturingInfo.Model = car.Model;
         model.ManufacturingInfo.Finish = car.Finish;
-
+        model.SellingInfo.AvailableDate = car.AvailableDate;
         model.SellingInfo.SellingDate = car.SellingDate;
         model.BuyingInfo.Date = car.BuyingDate;
         model.SellingInfo.Price = car.BuyingPrice + car.FixingCost + _profit;

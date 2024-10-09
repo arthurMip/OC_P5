@@ -19,7 +19,9 @@ public class CarController : Controller
     [Authorize(Roles="Admin,User")]
     public async Task<IActionResult> Index()
     {
-        var cars =  await _carService.GetCarsAsync(false);
+        bool getAllCar = User.IsInRole("Admin");
+
+        var cars =  await _carService.GetCarsAsync(!getAllCar);
         
         return View(cars);
     }

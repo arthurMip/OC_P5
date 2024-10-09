@@ -38,12 +38,13 @@ public class CarRepository(ApplicationDbContext context) : ICarRepository
     public async Task<IEnumerable<Car>> GetAvailableCarsAsync()
     {
         return await _context.Cars
-            .Where(c => c.Visible)
             .Include(c => c.ManufacturingInfo)
             .Include(c => c.SellingInfo)
             .Include(c => c.FixingInfo)
             .Include(c => c.BuyingInfo)
             .Include(c => c.Image)
+            .Where(c => c.Visible)
+            .Where(c => DateTime.Now >= c.SellingInfo.AvailableDate)
             .ToListAsync();
     }
 

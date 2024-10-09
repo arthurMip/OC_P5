@@ -4,7 +4,7 @@ namespace ExpressVoitures.Services;
 
 public interface ICarService
 {
-    Task<IEnumerable<CarViewModel>> GetCarsAsync(bool onlyAvailable);
+    Task<IEnumerable<CarViewModel>> GetCarsAsync(bool getAll);
     Task<CarViewModel?> GetCarByIdAsync(int id);
     Task<UpdateCarViewModel?> GetUpdateCarViewModelByIdAsync(int id);
     Task<bool> AddCarAsync(CreateCarViewModel car);
