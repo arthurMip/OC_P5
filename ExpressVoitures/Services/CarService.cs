@@ -50,10 +50,20 @@ public class CarService : ICarService
         };
     }
 
-    public async Task<CarViewModel?> GetCarByIdAsync(int id)
+    public async Task<CarViewModel?> GetCarByIdAsync(int id, bool isAdmin)
     {
         Car? car = await _carRepository.GetCarByIdAsync(id);
-        return car == null ? null : MapCarToCarViewModel(car);
+        if (car == null)
+        {
+            return null;
+        }
+
+        bool isAvailable = DateTime.Now >= car.SellingInfo.AvailableDate;
+        if (!isAdmin && (!isAvailable || !car.Visible))
+        {
+            return null;
+        }
+        return MapCarToCarViewModel(car);
     }
 
 

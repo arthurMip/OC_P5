@@ -1,5 +1,4 @@
-﻿using ExpressVoitures.Data.Entities;
-using ExpressVoitures.Models.Car;
+﻿using ExpressVoitures.Models.Car;
 using ExpressVoitures.Models.Shared;
 using ExpressVoitures.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -19,9 +18,9 @@ public class CarController : Controller
     [Authorize(Roles="Admin,User")]
     public async Task<IActionResult> Index()
     {
-        bool getAllCar = User.IsInRole("Admin");
+        bool isAdmin = User.IsInRole("Admin");
 
-        var cars =  await _carService.GetCarsAsync(!getAllCar);
+        var cars =  await _carService.GetCarsAsync(isAdmin);
         
         return View(cars);
     }
@@ -30,7 +29,10 @@ public class CarController : Controller
     [HttpGet]
     public async Task<IActionResult> Details(int id)
     {
-        var car = await _carService.GetCarByIdAsync(id);
+        bool isAdmin = User.IsInRole("Admin");
+
+        var car = await _carService.GetCarByIdAsync(id, isAdmin);
+
         if (car == null)
         {
             return NotFound();
