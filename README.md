@@ -55,7 +55,14 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
    - Appuyez sur `Ctrl + F5` ou cliquez sur le bouton **Démarrer sans débogage** dans Visual Studio pour lancer l'application.
 
 2. **Accéder à l'application** :
+
    - Ouvrez votre navigateur web et allez à l'URL suivante :
      ```
      https://localhost:7091/
      ```
+
+3. **Compte Administrateur** :
+
+- Vous pouvez vous connecter à l'application avec le compte administrateur par défaut :
+  - **Email** : `admin@voiture-express.fr`
+    - **Mot de passe** : `AdminPassword123!`
