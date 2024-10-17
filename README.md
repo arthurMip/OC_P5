@@ -64,5 +64,5 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 3. **Compte Administrateur** :
 
 - Vous pouvez vous connecter à l'application avec le compte administrateur par défaut :
-  - **Email** : `admin@voiture-express.fr`
-    - **Mot de passe** : `AdminPassword123!`
+  **Email** : `admin@voiture-express.fr`
+  **Mot de passe** : `AdminPassword123!`
