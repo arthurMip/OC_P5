@@ -1,6 +1,6 @@
-# Projet ASP.NET MVC avec .NET 8, EF Core et SQL Server
+# Projet Express Voiture
 
-Ce projet est une application ASP.NET MVC utilisant .NET 8, Entity Framework Core et SQL Server. Ce fichier fournit des instructions pour installer et exécuter le projet en local.
+Ce projet est une application ASP.NET MVC utilisant .NET 8, Entity Framework Core, SQL Server et Identity. Ce fichier fournit des instructions pour installer et exécuter le projet en local.
 
 ## Prérequis
 
