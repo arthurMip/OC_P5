@@ -57,5 +57,5 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 2. **Accéder à l'application** :
    - Ouvrez votre navigateur web et allez à l'URL suivante :
      ```
-     http://localhost:5000
+     https://localhost:7091/
      ```
